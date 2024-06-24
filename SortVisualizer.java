@@ -16,7 +16,7 @@ public class SortVisualizer extends JFrame {
     private int delay = 50;
     Color neonPink = new Color(255, 105, 180); // RGB para rosa neon
     Color darkPink = new Color(255, 20, 147); // RGB para rosa neon
-    private JButton speed1xButton, speed1_5xButton, speed2xButton; // Declarados como atributos
+    private JButton speed1xButton, speed1_5xButton, speed2xButton, speed3xButton, speed5xButton; // Declarados como atributos
 
     public int getDelay() {
         return delay;
@@ -60,6 +60,8 @@ public class SortVisualizer extends JFrame {
         speed1xButton = new JButton("Normal");
         speed1_5xButton = new JButton("1.5x");
         speed2xButton = new JButton("2x");
+        speed3xButton = new JButton("3x");
+        speed5xButton = new JButton("5x");
 
         // Configuração inicial dos botões (preto)
         resetSpeedButtonColors();
@@ -83,9 +85,24 @@ public class SortVisualizer extends JFrame {
             speed2xButton.setForeground(darkPink);
         });
 
+        speed3xButton.addActionListener(e -> {
+            delay = 16; // Velocidade 3x (aproximadamente 50 / 3)
+            resetSpeedButtonColors();
+            speed3xButton.setForeground(darkPink);
+        });
+
+        speed5xButton.addActionListener(e -> {
+            delay = 10; // Velocidade 5x
+            resetSpeedButtonColors();
+            speed5xButton.setForeground(darkPink);
+        });
+
+
         speedButtonPanel.add(speed1xButton);
         speedButtonPanel.add(speed1_5xButton);
         speedButtonPanel.add(speed2xButton);
+        speedButtonPanel.add(speed3xButton);
+        speedButtonPanel.add(speed5xButton);
 
 
         bubbleSortButton.addActionListener(e -> startSort(new BubbleSort()));
@@ -109,14 +126,21 @@ public class SortVisualizer extends JFrame {
         speed1xButton.setForeground(Color.BLACK);
         speed1_5xButton.setForeground(Color.BLACK);
         speed2xButton.setForeground(Color.BLACK);
+        speed3xButton.setForeground(Color.BLACK);
+        speed5xButton.setForeground(Color.BLACK);
+
         // Remova as bordas dos botões, se houver
         speed1xButton.setBorder(null);
         speed1_5xButton.setBorder(null);
         speed2xButton.setBorder(null);
+        speed3xButton.setBorder(null);
+        speed5xButton.setBorder(null);
         // Remova o fundo dos botões, se houver
         speed1xButton.setContentAreaFilled(false);
         speed1_5xButton.setContentAreaFilled(false);
         speed2xButton.setContentAreaFilled(false);
+        speed3xButton.setContentAreaFilled(false);
+        speed5xButton.setContentAreaFilled(false);
     }
 
     private void shuffleArray() {
