@@ -16,6 +16,7 @@ public class SortVisualizer extends JFrame {
     private int delay = 50;
     Color neonPink = new Color(255, 105, 180); // RGB para rosa neon
     Color darkPink = new Color(255, 20, 147); // RGB para rosa neon
+    private JButton speed1xButton, speed1_5xButton, speed2xButton; // Declarados como atributos
 
     public int getDelay() {
         return delay;
@@ -52,22 +53,39 @@ public class SortVisualizer extends JFrame {
         JButton mergeSortButton = new JButton("Merge Sort");
         JButton quickSortButton = new JButton("Quick Sort");
         JButton shuffleButton = new JButton("Shuffle");
-        JButton speed1xButton = new JButton("1x");
-        JButton speed1_5xButton = new JButton("1.5x");
-        JButton speed2xButton = new JButton("2x");
 
+        JPanel speedButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Alinhamento à esquerda
 
+        // Botões de velocidade (sem fundo, com texto preto)
+        speed1xButton = new JButton("Normal");
+        speed1_5xButton = new JButton("1.5x");
+        speed2xButton = new JButton("2x");
+
+        // Configuração inicial dos botões (preto)
+        resetSpeedButtonColors();
+
+        // ActionListeners dos botões de velocidade
         speed1xButton.addActionListener(e -> {
-            delay = 50; // Velocidade normal
+            delay = 50;
+            resetSpeedButtonColors();
+            speed1xButton.setForeground(darkPink); // Destaca o botão ativo
         });
 
         speed1_5xButton.addActionListener(e -> {
-            delay = 33; // Velocidade 1.5x (50 / 1.5)
+            delay = 33;
+            resetSpeedButtonColors();
+            speed1_5xButton.setForeground(darkPink);
         });
 
         speed2xButton.addActionListener(e -> {
-            delay = 25; // Velocidade 2x (50 / 2)
+            delay = 25;
+            resetSpeedButtonColors();
+            speed2xButton.setForeground(darkPink);
         });
+
+        speedButtonPanel.add(speed1xButton);
+        speedButtonPanel.add(speed1_5xButton);
+        speedButtonPanel.add(speed2xButton);
 
 
         bubbleSortButton.addActionListener(e -> startSort(new BubbleSort()));
@@ -81,15 +99,26 @@ public class SortVisualizer extends JFrame {
         buttonPanel.add(mergeSortButton);
         buttonPanel.add(quickSortButton);
         buttonPanel.add(shuffleButton);
-        buttonPanel.add(speed1xButton);
-        buttonPanel.add(speed1_5xButton);
-        buttonPanel.add(speed2xButton);
-
-
+        add(speedButtonPanel, BorderLayout.NORTH); // Adiciona o painel ao topo
         add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
+    // Método para resetar a cor dos botões de velocidade
+    private void resetSpeedButtonColors() {
+        speed1xButton.setForeground(Color.BLACK);
+        speed1_5xButton.setForeground(Color.BLACK);
+        speed2xButton.setForeground(Color.BLACK);
+        // Remova as bordas dos botões, se houver
+        speed1xButton.setBorder(null);
+        speed1_5xButton.setBorder(null);
+        speed2xButton.setBorder(null);
+        // Remova o fundo dos botões, se houver
+        speed1xButton.setContentAreaFilled(false);
+        speed1_5xButton.setContentAreaFilled(false);
+        speed2xButton.setContentAreaFilled(false);
+    }
+
     private void shuffleArray() {
         Random rand = new Random();
         for (int i = arr.length - 1; i > 0; i--) {
