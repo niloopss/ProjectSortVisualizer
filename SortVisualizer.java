@@ -17,6 +17,8 @@ public class SortVisualizer extends JFrame {
     Color neonPink = new Color(255, 105, 180); // RGB para rosa neon
     Color darkPink = new Color(255, 20, 147); // RGB para rosa neon
     private JButton speed1xButton, speed1_5xButton, speed2xButton, speed3xButton, speed5xButton; // Declarados como atributos
+    private JButton bubbleSortButton, insertionSortButton, mergeSortButton, quickSortButton, shuffleButton;
+
 
     public int getDelay() {
         return delay;
@@ -48,11 +50,11 @@ public class SortVisualizer extends JFrame {
         add(barPanel, BorderLayout.CENTER);
 
         buttonPanel = new JPanel();
-        JButton bubbleSortButton = new JButton("Bubble Sort");
-        JButton insertionSortButton = new JButton("Insertion Sort");
-        JButton mergeSortButton = new JButton("Merge Sort");
-        JButton quickSortButton = new JButton("Quick Sort");
-        JButton shuffleButton = new JButton("Shuffle");
+        bubbleSortButton = new JButton("Bubble Sort");
+        insertionSortButton = new JButton("Insertion Sort");
+        mergeSortButton = new JButton("Merge Sort");
+        quickSortButton = new JButton("Quick Sort");
+        shuffleButton = new JButton("Shuffle");
 
         JPanel speedButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Alinhamento à esquerda
 
@@ -63,10 +65,37 @@ public class SortVisualizer extends JFrame {
         speed3xButton = new JButton("3x");
         speed5xButton = new JButton("5x");
 
-        // Configuração inicial dos botões (preto)
-        resetSpeedButtonColors();
+        // ActionListeners dos botões
+        bubbleSortButton.addActionListener(e -> {
+            startSort(new BubbleSort());
+            resetAlgorithmButtonColors();
+            bubbleSortButton.setForeground(darkPink);
+        });
 
-        // ActionListeners dos botões de velocidade
+        insertionSortButton.addActionListener(e ->{
+            startSort(new InsertionSort());
+            resetAlgorithmButtonColors();
+            insertionSortButton.setForeground(darkPink);
+        });
+
+        mergeSortButton.addActionListener(e ->{
+            startSort(new MergeSort());
+            resetAlgorithmButtonColors();
+            mergeSortButton.setForeground(darkPink);
+        });
+
+        quickSortButton.addActionListener(e ->{
+            startSort(new QuickSort());
+            resetAlgorithmButtonColors();
+            quickSortButton.setForeground(darkPink);
+        });
+
+        shuffleButton.addActionListener(e -> {
+            startSort(new Shuffle()); // Usa a nova classe Shuffle
+            resetAlgorithmButtonColors();
+            shuffleButton.setForeground(darkPink);
+        });
+
         speed1xButton.addActionListener(e -> {
             delay = 50;
             resetSpeedButtonColors();
@@ -109,7 +138,7 @@ public class SortVisualizer extends JFrame {
         insertionSortButton.addActionListener(e -> startSort(new InsertionSort()));
         mergeSortButton.addActionListener(e -> startSort(new MergeSort()));
         quickSortButton.addActionListener(e -> startSort(new QuickSort()));
-        shuffleButton.addActionListener(e -> shuffleArray());
+        shuffleButton.addActionListener(e -> startSort(new Shuffle()));
 
         buttonPanel.add(bubbleSortButton);
         buttonPanel.add(insertionSortButton);
@@ -119,8 +148,23 @@ public class SortVisualizer extends JFrame {
         add(speedButtonPanel, BorderLayout.NORTH); // Adiciona o painel ao topo
         add(buttonPanel, BorderLayout.SOUTH);
 
+        // Configuração inicial dos botões (preto)
+        resetSpeedButtonColors();
+        resetAlgorithmButtonColors();
+
         setVisible(true);
     }
+
+    // Método para resetar a cor dos botões dos algoritmos
+    private void resetAlgorithmButtonColors() {
+        bubbleSortButton.setForeground(Color.BLACK);
+        insertionSortButton.setForeground(Color.BLACK);
+        mergeSortButton.setForeground(Color.BLACK);
+        quickSortButton.setForeground(Color.BLACK);
+        shuffleButton.setForeground(Color.BLACK);
+    }
+
+
     // Método para resetar a cor dos botões de velocidade
     private void resetSpeedButtonColors() {
         speed1xButton.setForeground(Color.BLACK);
@@ -143,16 +187,6 @@ public class SortVisualizer extends JFrame {
         speed5xButton.setContentAreaFilled(false);
     }
 
-    private void shuffleArray() {
-        Random rand = new Random();
-        for (int i = arr.length - 1; i > 0; i--) {
-            int j = rand.nextInt(i + 1);
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-        updateView(arr); // Atualiza a visualização após o embaralhamento
-    }
     private void drawBars(Graphics g, Insets insets) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
