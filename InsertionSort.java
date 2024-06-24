@@ -1,4 +1,12 @@
 public class InsertionSort implements SortingAlgorithm {
+    private void sleepForVisualization(SortVisualizer visualizer) {
+        try {
+            Thread.sleep(visualizer.getDelay()); // Usa o getter para obter o delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void sort(int[] arr, SortVisualizer visualizer) {
         int n = arr.length;
@@ -19,6 +27,7 @@ public class InsertionSort implements SortingAlgorithm {
             }
             arr[j + 1] = key;
             visualizer.updateView(arr);
+            sleepForVisualization(visualizer); // Chama o método sleepForVisualization
         }
     }
 }

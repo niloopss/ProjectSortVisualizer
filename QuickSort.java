@@ -1,4 +1,11 @@
 public class QuickSort implements SortingAlgorithm {
+    private void sleepForVisualization(SortVisualizer visualizer) {
+        try {
+            Thread.sleep(visualizer.getDelay()); // Usa o getter para obter o delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void sort(int[] arr, SortVisualizer visualizer) {
@@ -27,7 +34,7 @@ public class QuickSort implements SortingAlgorithm {
                 arr[j] = temp;
 
                 visualizer.updateView(arr, i, j); // Atualiza a visualização e destaca as barras sendo trocadas
-                sleepForVisualization();
+                sleepForVisualization(visualizer);
             }
         }
 
@@ -37,16 +44,8 @@ public class QuickSort implements SortingAlgorithm {
         arr[high] = temp;
 
         visualizer.updateView(arr, i + 1, high);
-        sleepForVisualization();
+        sleepForVisualization(visualizer);
 
         return i + 1; // Retorna o índice do pivô
-    }
-
-    private void sleepForVisualization() {
-        try {
-            Thread.sleep(50); // Pausa para visualização (ajuste conforme necessário)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

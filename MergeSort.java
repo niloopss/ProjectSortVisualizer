@@ -1,4 +1,12 @@
 public class MergeSort implements SortingAlgorithm {
+    private void sleepForVisualization(SortVisualizer visualizer) {
+        try {
+            Thread.sleep(visualizer.getDelay()); // Usa o getter para obter o delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void sort(int[] arr, SortVisualizer visualizer) {
         mergeSort(arr, 0, arr.length - 1, visualizer);
@@ -41,6 +49,7 @@ public class MergeSort implements SortingAlgorithm {
                 j++;
             }
             visualizer.updateView(arr, k, k); // Atualiza visualização e destaca a posição k
+            sleepForVisualization(visualizer); // Chama o método sleepForVisualization
             try {
                 Thread.sleep(50); // Pausa para visualização
             } catch (InterruptedException e) {
@@ -53,6 +62,7 @@ public class MergeSort implements SortingAlgorithm {
         while (i < n1) {
             arr[k] = L[i];
             visualizer.updateView(arr, k, k);
+            sleepForVisualization(visualizer); // Chama o método sleepForVisualization
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -66,6 +76,7 @@ public class MergeSort implements SortingAlgorithm {
         while (j < n2) {
             arr[k] = R[j];
             visualizer.updateView(arr, k, k);
+            sleepForVisualization(visualizer); // Chama o método sleepForVisualization
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {

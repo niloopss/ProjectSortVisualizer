@@ -13,8 +13,13 @@ public class SortVisualizer extends JFrame {
     private SortingAlgorithm currentAlgorithm;
     private int a = -1;
     private int b = -1;
+    private int delay = 50;
     Color neonPink = new Color(255, 105, 180); // RGB para rosa neon
     Color darkPink = new Color(255, 20, 147); // RGB para rosa neon
+
+    public int getDelay() {
+        return delay;
+    }
 
     public SortVisualizer() {
         setTitle("Sort Visualizer");
@@ -47,6 +52,23 @@ public class SortVisualizer extends JFrame {
         JButton mergeSortButton = new JButton("Merge Sort");
         JButton quickSortButton = new JButton("Quick Sort");
         JButton shuffleButton = new JButton("Shuffle");
+        JButton speed1xButton = new JButton("1x");
+        JButton speed1_5xButton = new JButton("1.5x");
+        JButton speed2xButton = new JButton("2x");
+
+
+        speed1xButton.addActionListener(e -> {
+            delay = 50; // Velocidade normal
+        });
+
+        speed1_5xButton.addActionListener(e -> {
+            delay = 33; // Velocidade 1.5x (50 / 1.5)
+        });
+
+        speed2xButton.addActionListener(e -> {
+            delay = 25; // Velocidade 2x (50 / 2)
+        });
+
 
         bubbleSortButton.addActionListener(e -> startSort(new BubbleSort()));
         insertionSortButton.addActionListener(e -> startSort(new InsertionSort()));
@@ -59,6 +81,10 @@ public class SortVisualizer extends JFrame {
         buttonPanel.add(mergeSortButton);
         buttonPanel.add(quickSortButton);
         buttonPanel.add(shuffleButton);
+        buttonPanel.add(speed1xButton);
+        buttonPanel.add(speed1_5xButton);
+        buttonPanel.add(speed2xButton);
+
 
         add(buttonPanel, BorderLayout.SOUTH);
 

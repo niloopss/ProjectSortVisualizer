@@ -1,4 +1,12 @@
 public class BubbleSort implements SortingAlgorithm {
+    private void sleepForVisualization(SortVisualizer visualizer) {
+        try {
+            Thread.sleep(visualizer.getDelay()); // Usa o getter para obter o delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void sort(int[] arr, SortVisualizer visualizer) {
         int n = arr.length;
@@ -16,6 +24,7 @@ public class BubbleSort implements SortingAlgorithm {
                     arr[j + 1] = temp;
 
                     visualizer.updateView(arr, j, j + 1); // Atualiza a visualização APÓS a troca
+                    sleepForVisualization(visualizer); // Chama o método sleepForVisualization
                 }
             }
         }
